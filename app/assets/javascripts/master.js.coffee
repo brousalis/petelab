@@ -36,10 +36,14 @@ class Petelab
             type: 'base64'
 
           success: (result) =>
-            petelab.trigger 'screenshotDone', link: result.data.link
+            petelab.trigger 'screenshotDone', 
+              link: result.data.link
+              agent: navigator.userAgent
+              height: screen.height
+              width: screen.width
+              
 
     screenshotDone: (data) ->
-      console.log(data)
       $('#screenshots').append("<li><img src='#{data.link}'></li>")
 
 
