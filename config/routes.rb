@@ -6,6 +6,7 @@ Portal::Application.routes.draw do
     get 'two'
     get 'three'
     get 'slave'
+    get 'screenshot'
   end 
 
   post '/pusher/auth' => 'pusher#auth'
