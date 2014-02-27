@@ -7,8 +7,21 @@ class Petelab
     @pusher = new Pusher @key
     @channel = @pusher.subscribe @channel_name
 
+    @pusher.connection.bind 'state_change', (states) => @setState(states)
+
+
     for event, handler of @_events
       @channel.bind "client-#{event}", handler
+
+  setState: (states) ->
+    indicators =
+      initialized: '⋯'
+      connecting: '⋯'
+      connected: '✓'
+      disconnected: '✗'
+
+    document.title = document.title.replace(new RegExp("^\\\[#{indicators[states.previous]}\\\] +"), '')
+    document.title = "[#{indicators[states.current]}] #{document.title}"
 
   trigger: (event, data = {}, callback) ->
     @channel.trigger "client-#{event}", data
@@ -47,12 +60,10 @@ class Petelab
       $('#screenshots').append("<li><img src='#{data.link}'></li>")
 
 
-$ ->
-  window.petelab = new Petelab(
-    '91df9bc51b1be5d235fa',
-    'private-petelab'
-  )
+window.petelab = new Petelab('91df9bc51b1be5d235fa', 'private-petelab')
 
+
+$ ->
   $(document).on 'click', 'a', (e) ->
     e.preventDefault()
 
