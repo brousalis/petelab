@@ -49,8 +49,8 @@ class window.Petelab
             petelab.trigger 'screenshotDone', 
               link: result.data.link
               agent: navigator.userAgent
-              height: screen.height
-              width: screen.width
+              height: $(window).height()
+              width: $(window).width()
 
     screenshotDone: (data) ->
       result = UAParser(data.agent)
