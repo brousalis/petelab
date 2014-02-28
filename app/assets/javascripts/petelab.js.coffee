@@ -57,6 +57,9 @@ class window.Petelab
         </li>
       """
 
+    setValue: (data) ->
+      $(data.path).val(data.value)
+
 
   sync: ->
     # get everyone on the same page

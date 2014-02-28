@@ -3,6 +3,7 @@
 #= require socket.io
 #= require pusher
 #= require html2canvas
+#= require jquery-getpath
 #= require_tree .
 #= require_self
 
@@ -33,6 +34,9 @@ $ ->
   $('.petelab-trigger-screenshots').on 'click', (e) ->
     e.preventDefault()
     petelab.trigger('screenshot')
+
+  $('textarea, input').on 'keyup change', (e) ->
+    petelab.trigger 'setValue', {path: $(this).getPath(), value: $(this).val()}
 
   petelab.sync()
 
