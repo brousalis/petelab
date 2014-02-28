@@ -1,6 +1,4 @@
-Pusher.log = (message) -> window.console?.log message
-
-class Petelab
+class window.Petelab
   constructor: (@key, @channelName, @authEndpoint) ->
     @pusher = new Pusher @key, authTransport: 'jsonp', authEndpoint: @authEndpoint
     @pusher.connection.bind 'state_change', (states) => @_setState(states)
@@ -72,26 +70,3 @@ class Petelab
 
     if callback?
       setTimeout (=> callback.apply(@)), 1000
-
-
-window.petelab = new Petelab('91df9bc51b1be5d235fa', 'private-petelab', 'http://petelab.dev/pusher/auth')
-
-
-$ ->
-  # bonus stuff?
-  $('body').append """
-    <div class="petelab">
-      <button class="petelab-trigger-screenshots">screenshot</button>
-      <ul class="petelab-screenshots"></ul>
-    </div>
-  """
-
-  # handle screenshots
-  $('.petelab-trigger-screenshots').on 'click', (e) ->
-    e.preventDefault()
-    petelab.trigger('screenshot')
-
-  petelab.sync()
-
-
-
