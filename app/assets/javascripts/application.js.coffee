@@ -2,6 +2,7 @@
 #= require jquery_ujs
 #= require socket.io
 #= require pusher
+#= require isotope 
 #= require html2canvas
 #= require jquery-getpath
 #= require jquery-scrollstop
@@ -29,7 +30,7 @@ $ ->
     <div class="petelab overlay overlay-contentpush">
       <button type="button" class="overlay-close">Close</button>
       <button class="petelab-trigger-screenshots">Get Screenshots</button>
-      <div class="petelab-screenshots"></div>
+      <div id="petelab-screenshots" class='isotope'></div>
     </div>
     <button id="petelab-trigger" type="button">
       <span class="petelab-state"></span>
@@ -37,29 +38,10 @@ $ ->
     </button>
   """
 
-  $('.petelab-screenshots').isotope({
+  $container = $('#petelab-screenshots').isotope({
     itemSelector: '.item',
     layoutMode: 'masonry'
   })
-
-  var $container = $('#isotope-demo').isotope({
-    itemSelector: '.element-item',
-        layoutMode: 'masonry',
-            masonry: {
-      columnWidth: 110
-    },
-        cellsByRow: {
-      columnWidth: 220,
-            rowHeight: 220
-    },
-        masonryHorizontal: {
-      rowHeight: 110
-    },
-        cellsByColumn: {
-      columnWidth: 220,
-            rowHeight: 220
-    }
-  });
 
   # handle screenshots
   $('.petelab-trigger-screenshots').on 'click', (e) ->

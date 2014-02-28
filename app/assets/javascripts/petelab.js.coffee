@@ -60,7 +60,7 @@ class window.Petelab
       os = "#{result.os.name} #{result.os.version}" 
       engine = result.engine
 
-      $('.petelab-screenshots').append """
+      $('#petelab-screenshots').append """
         <div class="item">
           <div class="data">
             <span>#{browser.name} #{browser.version}</span>
@@ -76,7 +76,7 @@ class window.Petelab
           </div>
         </div>
       """
-      $('.petelab-screenshots').isotope('layout')
+      $('#petelab-screenshots').isotope('reloadItems').isotope('arrange')
 
 
     setValue: (data) ->

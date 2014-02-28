@@ -84,12 +84,12 @@ input {
   }
 }
 
-.petelab-screenshots {
-  list-style: none;
+#petelab-screenshots {
   padding: 0;
   margin: 0 auto;
-  display: inline-block;
+  display: block;
   height: 100%;
+  width: 100%;
   position: relative;
   margin-left: 30px;
   margin-top: 120px;
@@ -118,6 +118,7 @@ input {
     height: auto;
     border-radius: 5px;
     margin-right: 20px;
+    margin-bottom: 20px;
     overflow: hidden;
   }
 
