@@ -9,6 +9,7 @@ html { height: 100%; }
 
 body {
   font-family: 'Lato', sans-serif;
+  color: #333;
   overflow-x: hidden;
   margin: 0;
   height: 100%;
@@ -36,18 +37,18 @@ input {
 }
 
 #petelab-trigger {
+  z-index: 200;
   background: #000;
   border: 0;
   padding: 10px 15px;
   font-weight: bold;
   font-size: 14px;
   color: #fff;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   margin: 0;
   cursor: pointer;
-  font-family: Lato;
   letter-spacing: 1px;
 
   &:active {
@@ -99,6 +100,7 @@ input {
     span {
       display: block;
       padding: 2px 5px;
+      font-size: 80%;
       border-bottom: 1px solid #f7f7f7;
     }
 
@@ -114,17 +116,23 @@ input {
     display: block;
     float: left;
     margin-right: 50px;
+    overflow: hidden;
+  }
+
+  a, a img {
+    display: block;
   }
 
   img {
     width: 250px;
-    height: 250px;
+    height: auto;
 
     &.open { width: auto; height: auto; }
   }
 }
 
 .overlay {
+  z-index: 300;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -156,7 +164,6 @@ input {
   min-height: 100%;
   height: 100%;
   width: 100%;
-  padding: 10px 20px;
 
   &:after {
     content: '';
@@ -173,8 +180,8 @@ input {
   }
 
   &.overlay-open {
-    -webkit-transform: translateX(50%);
-    transform: translateX(50%);
+    //-webkit-transform: translateX(50%);
+    //transform: translateX(50%);
 
     &:after {
       visibility: visible;
@@ -186,7 +193,7 @@ input {
 }
 
 .overlay-contentpush {
-  background: #b6b6b6;
+  background: rgba(#b6b6b6, 0.9);
   visibility: hidden;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -202,4 +209,142 @@ input {
   transform: translateX(0%);
   -webkit-transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
+}
+
+footer {
+  background: #555;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 75px;
+}
+
+.n-links {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 30px;
+
+  li, li a {
+    display: inline-block;
+  }
+
+  li {
+    margin: 0 10px 10px;
+  }
+
+  a {
+    padding: 15px 30px;
+    background: #eee;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      background: #000;
+      color: #eee;
+    }
+  }
+}
+
+.petelab-state {
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+
+  &:first-child:last-child {
+    margin: 0;
+  }
+
+  &.connected {
+    background: #3b9737;
+  }
+
+  &.connecting {
+    background: #3576be;
+  }
+
+  &.disconnected, &.unavailable {
+    background: #c2393b;
+  }
+}
+
+body {
+  // x-small
+  @media (max-width: 767px) {
+    background: #5BB75B;
+  }
+
+  // small
+  @media (min-width: 768px) and (max-width: 991px) {
+    background: #FAA732;
+  }
+
+  // medium
+  @media (min-width: 992px) and (max-width: 1199px) {
+    background: #49AFCD;
+  }
+
+  // large
+  @media (min-width: 1200px) and (max-width: 1399px) {
+    background: #DA4F49;
+  }
+}
+
+.content {
+  text-align: center;
+  margin: 10% auto 300px;
+  width: 50%;
+
+  p.n {
+    text-align: center;
+    font-size: 250px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 50px;
+    line-height: 80px;
+  }
+
+  textarea {
+    width: 100%;
+    display: block;
+    font-size: 35px;
+    color: inherit;
+    border: 5px #ccc solid;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    select {
+      -webkit-appearance: none;
+      font-size: 30px;
+      border: 5px #ccc solid;
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+    }
+
+    &:after {
+      display: block;
+      content: '\25BE';
+      position: absolute;
+      top: 25px;
+      right: 20px;
+      font-size: 30px;
+    }
+  }
 }

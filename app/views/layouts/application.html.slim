@@ -8,6 +8,12 @@ html
 
   body
     div.container
-      = yield
+      .content= yield
 
-    button#petelab-trigger type="button" PETELAB 
+      footer
+        ul.n-links
+          - (1..3).each do |n|
+            li= link_to n, n_path(n: n)
+          li= link_to 'txt', txt_path
+          li= link_to 'select', select_path
+          li= link_to 'scroll', scroll_path

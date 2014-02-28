@@ -1,5 +1,7 @@
 class window.Petelab
   constructor: (@key, @channelName, @authEndpoint) ->
+    @isClient = (window.location.hash == '#client')
+
     @pusher = new Pusher @key, authTransport: 'jsonp', authEndpoint: @authEndpoint
     @pusher.connection.bind 'state_change', (states) => @_setState(states)
     
@@ -19,11 +21,14 @@ class window.Petelab
     document.title = document.title.replace(new RegExp("^\\\[#{indicators[states.previous]}\\\] +"), '')
     document.title = "[#{indicators[states.current]}] #{document.title}"
 
-    $('.petelab').removeClass(states.previous).addClass(states.current)
+    $('.petelab, .petelab-state').removeClass(states.previous).addClass(states.current)
 
   events:
     navigate: (data) ->
-      window.location = data.url
+      if window.location.href == data.url
+        window.location.reload()
+      else
+        window.location = data.url
 
     screenshot: (data) ->
       html2canvas document.body, onrendered: (canvas) =>
@@ -74,11 +79,18 @@ class window.Petelab
     setValue: (data) ->
       $(data.path).val(data.value)
 
+    scroll: (data) ->
+      if petelab.isClient
+        if data.scrollTop
+          $('body').stop().animate(scrollTop: data.scrollTop, 100)
+        else if data.scrollTopPercentage
+          $('body').stop().animate(scrollTop: ($(document).height() * data.scrollTopPercentage), 100)
+
 
   sync: ->
     # get everyone on the same page
-    if window.location.hash == '#client'
-      $('.petelab, #petelab-trigger').hide()
+    if @isClient
+      $('.petelab-client-hidden').hide()
     else
       petelab.channel.bind 'pusher:subscription_succeeded', =>
         @trigger 'navigate', url: (window.location.href.replace(/#.*$/, '') + '#client')

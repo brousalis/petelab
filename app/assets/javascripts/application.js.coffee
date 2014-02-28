@@ -4,6 +4,7 @@
 #= require pusher
 #= require html2canvas
 #= require jquery-getpath
+#= require jquery-scrollstop
 #= require_tree .
 #= require_self
 #= require overlay
@@ -29,6 +30,10 @@ $ ->
       <button class="petelab-trigger-screenshots">Get Screenshots</button>
       <ul class="petelab-screenshots"></ul>
     </div>
+    <button id="petelab-trigger" type="button">
+      <span class="petelab-state"></span>
+      <span class="petelab-client-hidden">PETELAB</span>
+    </button>
   """
 
   # handle screenshots
@@ -38,6 +43,12 @@ $ ->
 
   $('textarea, input, select').on 'keyup change', (e) ->
     petelab.trigger 'setValue', {path: $(this).getPath(), value: $(this).val()}
+
+  $('textarea, input, select').filter(':visible:first').focus()
+
+  unless petelab.isClient
+    $(window).on 'scrollstop', ->
+      petelab.trigger 'scroll', scrollTopPercentage: ($(window).scrollTop() / $(document).height())
 
   petelab.sync()
 
