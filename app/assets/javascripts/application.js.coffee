@@ -16,10 +16,10 @@ window.petelab = new Petelab(
   '91df9bc51b1be5d235fa',
 
   # channel name
-  'petelab',
+  "petelab-#{window.location.hostname}",
 
   # auth endpoint
-  'http://petelab.dev/pusher/auth',
+  '/pusher/auth',
 )
 
 $ ->
