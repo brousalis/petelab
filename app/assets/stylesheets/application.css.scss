@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Merriweather:400,700);
+
 * {
   outline: 0 !important; 
   *zoom: 1;             
@@ -6,17 +8,31 @@
 html { height: 100%; }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
   overflow-x: hidden;
   margin: 0;
   height: 100%;
   width: 100%;
 }
 
+a, a:active, a:hover { color: #ab3c3c; }
+
+p { font-size: 24px; }
+
 input {
-  border: 1px solid #444;
-  margin-top: 20px;
-  padding: 10px;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 16px;
+  width: 300px;
+  height: 40px;
+  border: 1px solid #dfdfdf;
+  margin-top: 40px;
+  background-color: #f9f9f9;
+
+  &:focus {
+    border-color: #dfdfdf;
+    box-shadow: none;
+  }
 }
 
 #petelab-trigger {
@@ -31,12 +47,18 @@ input {
   right: 0;
   margin: 0;
   cursor: pointer;
+  font-family: Lato;
+  letter-spacing: 1px;
+
+  &:active {
+    padding-top: 15px;
+  }
 }
 
 .petelab-trigger-screenshots {
-  background: #000;
   border: 0;
   font-weight: bold;
+  letter-spacing: 1px;
   font-size: 14px;
   color: #fff;
   position: absolute;
@@ -44,28 +66,62 @@ input {
   cursor: pointer;
   right: 140px;
   top: 32px;
-  padding: 21px 27px;
+  padding: 18px 27px;
   text-transform: uppercase;
+  border-radius: 5px;
+  background: #cb4e4e;
+  box-shadow: 0 6px #ab3c3c;
+
+  &:hover {
+    box-shadow: 0 8px #ab3c3c;
+    top: 30px;
+  }
+
+  &:active {
+    box-shadow: 0 0 #ab3c3c;
+    top: 38px;
+  }
 }
 
 .petelab-screenshots {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  height: 100%;
+  position: relative;
+  margin-left: 30px;
+  margin-top: 30px;
+  &:before, &:after { content: " "; display: table; }
+  &:after { clear: both; }
 
   .data {
-    font-size: 80%;
-    width: 250px;
-    span { width: 250px; display: block; background: #fff; }
-    span+span { background: #ddd; }
+    span {
+      display: block;
+      padding: 2px 5px;
+      border-bottom: 1px solid #f7f7f7;
+    }
+
+    span:last-child {
+      background: #ddd;
+      border-bottom: 0;
+    }
   }
-}
 
-img {
-  width: 250px;
-  height: 250px;
+  li {
+    background: #fff;
+    border-radius: 5px;
+    display: block;
+    float: left;
+    margin-right: 50px;
+  }
 
-  &.open { width: auto; height: auto; }
+  img {
+    width: 250px;
+    height: 250px;
+
+    &.open { width: auto; height: auto; }
+  }
 }
 
 .overlay {
@@ -89,43 +145,6 @@ img {
     cursor: pointer;
     outline: none;
     z-index: 100;
-  }
-
-  nav {
-    text-align: center;
-    position: relative;
-    top: 50%;
-    height: 60%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    display: inline-block;
-    height: 100%;
-    position: relative;
-    li {
-      display: block;
-      height: 20%;
-      height: calc(100% / 5);
-      min-height: 54px;
-      float: left;
-      margin-right: 50px;
-      a {
-        font-size: 54px;
-        font-weight: 300;
-        display: block;
-        color: #fff;
-        -webkit-transition: color 0.2s;
-        transition: color 0.2s;
-        &:hover, &:focus {
-          color: #f0f0f0;
-        }
-      }
-    }
   }
 }
 

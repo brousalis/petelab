@@ -48,11 +48,20 @@ class window.Petelab
               width: screen.width
 
     screenshotDone: (data) ->
+      result = UAParser(data.agent)
+      browser = result.browser
+      device = if result.device.vendor then "<span>#{result.device.vendor} #{result.device.model}</span>" else ""
+      os = "#{result.os.name} #{result.os.version}" 
+      engine = result.engine
+
       $('.petelab-screenshots').append """
         <li>
           <div class="data">
-            <span class='agent'>#{data.agent}</span>
-            <span class='dimensions'>#{data.width}x#{data.height}</span>
+            <span>#{browser.name} #{browser.version}</span>
+            #{device}
+            <span>#{os}</span>
+            <span>#{engine.name}</span>
+            <span>#{data.width}x#{data.height}</span>
           </div>
           <div class="image">
             <a href="#{data.link}" target="_blank">
@@ -69,7 +78,7 @@ class window.Petelab
   sync: ->
     # get everyone on the same page
     if window.location.hash == '#client'
-      $('.petelab, .petelab-trigger').hide()
+      $('.petelab, #petelab-trigger').hide()
     else
       petelab.channel.bind 'pusher:subscription_succeeded', =>
         @trigger 'navigate', url: (window.location.href.replace(/#.*$/, '') + '#client')
