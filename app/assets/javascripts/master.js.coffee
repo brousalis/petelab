@@ -1,12 +1,11 @@
 Pusher.log = (message) -> window.console?.log message
 
 class Petelab
-  constructor: (@key, @channelName) ->
-    @pusher   = new Pusher @key
-    @channel  = @pusher.subscribe @channelName
-    @presence = @pusher.subscribe "presence-#{@channelName}"
-
+  constructor: (@key, @channelName, @authEndpoint) ->
+    @pusher = new Pusher @key, authTransport: 'jsonp', authEndpoint: @authEndpoint
     @pusher.connection.bind 'state_change', (states) => @_setState(states)
+    
+    @channel  = @pusher.subscribe @channelName
 
     for event, handler of @events
       @channel.bind "client-#{event}", handler
@@ -75,7 +74,7 @@ class Petelab
       setTimeout (=> callback.apply(@)), 1000
 
 
-window.petelab = new Petelab('91df9bc51b1be5d235fa', 'private-petelab')
+window.petelab = new Petelab('91df9bc51b1be5d235fa', 'private-petelab', 'http://petelab.dev/pusher/auth')
 
 
 $ ->
@@ -93,4 +92,6 @@ $ ->
     petelab.trigger('screenshot')
 
   petelab.sync()
+
+
 

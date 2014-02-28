@@ -9,5 +9,5 @@ Portal::Application.routes.draw do
     get 'screenshot'
   end 
 
-  post '/pusher/auth' => 'pusher#auth'
+  get '/pusher/auth' => 'pusher#auth'
 end
