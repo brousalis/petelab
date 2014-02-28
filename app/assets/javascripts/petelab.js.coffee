@@ -50,9 +50,14 @@ class window.Petelab
     screenshotDone: (data) ->
       $('.petelab-screenshots').append """
         <li>
-          <div class="data">#{JSON.stringify data}</div>
+          <div class="data">
+            <span class='agent'>#{data.agent}</span>
+            <span class='dimensions'>#{data.width}x#{data.height}</span>
+          </div>
           <div class="image">
-            <img src='#{data.link}'>
+            <a href="#{data.link}" target="_blank">
+              <img class='img' src='#{data.link}' alt='#{data.agent}'>
+            </a>
           </div>
         </li>
       """
@@ -64,7 +69,7 @@ class window.Petelab
   sync: ->
     # get everyone on the same page
     if window.location.hash == '#client'
-      $('.petelab').hide()
+      $('.petelab, .petelab-trigger').hide()
     else
       petelab.channel.bind 'pusher:subscription_succeeded', =>
         @trigger 'navigate', url: (window.location.href.replace(/#.*$/, '') + '#client')

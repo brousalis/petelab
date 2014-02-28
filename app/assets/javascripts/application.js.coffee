@@ -6,7 +6,7 @@
 #= require jquery-getpath
 #= require_tree .
 #= require_self
-
+#= require overlay
 
 Pusher.log = (message) -> window.console?.log message
 
@@ -24,8 +24,9 @@ window.petelab = new Petelab(
 $ ->
   # bonus stuff?
   $('body').append """
-    <div class="petelab">
-      <button class="petelab-trigger-screenshots">screenshot</button>
+    <div class="petelab overlay overlay-contentpush">
+      <button type="button" class="overlay-close">Close</button>
+      <button class="petelab-trigger-screenshots">Get Screenshots</button>
       <ul class="petelab-screenshots"></ul>
     </div>
   """
