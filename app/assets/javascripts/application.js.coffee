@@ -35,7 +35,7 @@ $ ->
     e.preventDefault()
     petelab.trigger('screenshot')
 
-  $('textarea, input').on 'keyup change', (e) ->
+  $('textarea, input, select').on 'keyup change', (e) ->
     petelab.trigger 'setValue', {path: $(this).getPath(), value: $(this).val()}
 
   petelab.sync()
