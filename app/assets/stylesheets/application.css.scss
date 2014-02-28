@@ -65,7 +65,7 @@ input {
   position: absolute;
   margin: 0;
   cursor: pointer;
-  right: 140px;
+  right: 122px;
   top: 32px;
   padding: 18px 27px;
   text-transform: uppercase;
@@ -92,7 +92,8 @@ input {
   height: 100%;
   position: relative;
   margin-left: 30px;
-  margin-top: 30px;
+  margin-top: 120px;
+
   &:before, &:after { content: " "; display: table; }
   &:after { clear: both; }
 
@@ -110,12 +111,13 @@ input {
     }
   }
 
-  li {
+  .item {
     background: #fff;
-    border-radius: 5px;
-    display: block;
     float: left;
-    margin-right: 50px;
+    width: 258px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 20px;
     overflow: hidden;
   }
 
@@ -124,7 +126,7 @@ input {
   }
 
   img {
-    width: 250px;
+    width: 258px;
     height: auto;
 
     &.open { width: auto; height: auto; }
@@ -138,6 +140,7 @@ input {
   height: 100%;
   top: 0;
   left: 0;
+  overflow-y: scroll;
 
   .overlay-close {
     width: 80px;

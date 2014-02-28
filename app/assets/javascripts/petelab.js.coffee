@@ -10,6 +10,7 @@ class window.Petelab
     for event, handler of @events
       @channel.bind "client-#{event}", handler
 
+
   _setState: (states) ->
     indicators =
       initialized: '⋯'
@@ -60,7 +61,7 @@ class window.Petelab
       engine = result.engine
 
       $('.petelab-screenshots').append """
-        <li>
+        <div class="item">
           <div class="data">
             <span>#{browser.name} #{browser.version}</span>
             #{device}
@@ -73,8 +74,10 @@ class window.Petelab
               <img class='img' src='#{data.link}' alt='#{data.agent}'>
             </a>
           </div>
-        </li>
+        </div>
       """
+      $('.petelab-screenshots').isotope('layout')
+
 
     setValue: (data) ->
       $(data.path).val(data.value)
