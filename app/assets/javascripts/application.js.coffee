@@ -9,7 +9,16 @@
 
 Pusher.log = (message) -> window.console?.log message
 
-window.petelab = new Petelab('91df9bc51b1be5d235fa', 'private-petelab', 'http://petelab.dev/pusher/auth')
+window.petelab = new Petelab(
+  # pusher key
+  '91df9bc51b1be5d235fa',
+
+  # channel name
+  'petelab',
+
+  # auth endpoint
+  'http://petelab.dev/pusher/auth',
+)
 
 $ ->
   # bonus stuff?

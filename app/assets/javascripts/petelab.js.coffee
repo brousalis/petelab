@@ -3,7 +3,7 @@ class window.Petelab
     @pusher = new Pusher @key, authTransport: 'jsonp', authEndpoint: @authEndpoint
     @pusher.connection.bind 'state_change', (states) => @_setState(states)
     
-    @channel  = @pusher.subscribe @channelName
+    @channel  = @pusher.subscribe "private-#{@channelName}"
 
     for event, handler of @events
       @channel.bind "client-#{event}", handler
@@ -18,6 +18,8 @@ class window.Petelab
 
     document.title = document.title.replace(new RegExp("^\\\[#{indicators[states.previous]}\\\] +"), '')
     document.title = "[#{indicators[states.current]}] #{document.title}"
+
+    $('.petelab').removeClass(states.previous).addClass(states.current)
 
   events:
     navigate: (data) ->

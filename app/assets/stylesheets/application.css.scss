@@ -12,6 +12,15 @@ body {
   padding: 15px;
   background: rgba(255, 255, 255, 0.5);
   overflow: auto;
+  border-top: 5px #ae3436 solid;
+
+  &.connected {
+    border-color: #3b9737;
+  }
+
+  &.connecting {
+    border-color: #3576be;
+  }
 }
 
 .petelab-screenshots {
