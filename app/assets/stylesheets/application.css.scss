@@ -1,0 +1,31 @@
+body {
+  font-family: sans-serif;
+  background: #aaa;
+}
+
+.petelab {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
+  width: 25%;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  overflow: auto;
+}
+
+.petelab-screenshots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .data {
+    font-size: 80%;
+  }
+
+  .image {
+    img {
+      max-width: 100%;
+    }
+  }
+}

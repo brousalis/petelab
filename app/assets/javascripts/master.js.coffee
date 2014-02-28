@@ -1,35 +1,28 @@
-Pusher.log = (message) ->
-  window.console?.log message
- 
+Pusher.log = (message) -> window.console?.log message
 
 class Petelab
-  constructor: (@key, @channel_name) ->
-    @pusher = new Pusher @key
-    @channel = @pusher.subscribe @channel_name
+  constructor: (@key, @channelName) ->
+    @pusher   = new Pusher @key
+    @channel  = @pusher.subscribe @channelName
+    @presence = @pusher.subscribe "presence-#{@channelName}"
 
-    @pusher.connection.bind 'state_change', (states) => @setState(states)
+    @pusher.connection.bind 'state_change', (states) => @_setState(states)
 
-
-    for event, handler of @_events
+    for event, handler of @events
       @channel.bind "client-#{event}", handler
 
-  setState: (states) ->
+  _setState: (states) ->
     indicators =
       initialized: '⋯'
       connecting: '⋯'
       connected: '✓'
       disconnected: '✗'
+      unavailable: '✗'
 
     document.title = document.title.replace(new RegExp("^\\\[#{indicators[states.previous]}\\\] +"), '')
     document.title = "[#{indicators[states.current]}] #{document.title}"
 
-  trigger: (event, data = {}, callback) ->
-    @channel.trigger "client-#{event}", data
-
-    if callback?
-      setTimeout (=> callback.apply(@)), 1000
-
-  _events:
+  events:
     navigate: (data) ->
       window.location = data.url
 
@@ -54,25 +47,50 @@ class Petelab
               agent: navigator.userAgent
               height: screen.height
               width: screen.width
-              
 
     screenshotDone: (data) ->
-      $('#screenshots').append("<li><img src='#{data.link}'></li>")
+      $('.petelab-screenshots').append """
+        <li>
+          <div class="data">#{JSON.stringify data}</div>
+          <div class="image">
+            <img src='#{data.link}'>
+          </div>
+        </li>
+      """
+
+
+  sync: ->
+    # get everyone on the same page
+    if window.location.hash == '#client'
+      $('.petelab').hide()
+    else
+      petelab.channel.bind 'pusher:subscription_succeeded', =>
+        @trigger 'navigate', url: (window.location.href.replace(/#.*$/, '') + '#client')
+
+  trigger: (event, data = {}, callback) ->
+    if @channel.trigger "client-#{event}", data
+      callback
+
+    if callback?
+      setTimeout (=> callback.apply(@)), 1000
 
 
 window.petelab = new Petelab('91df9bc51b1be5d235fa', 'private-petelab')
 
 
 $ ->
-  $(document).on 'click', 'a', (e) ->
+  # bonus stuff?
+  $('body').append """
+    <div class="petelab">
+      <button class="petelab-trigger-screenshots">screenshot</button>
+      <ul class="petelab-screenshots"></ul>
+    </div>
+  """
+
+  # handle screenshots
+  $('.petelab-trigger-screenshots').on 'click', (e) ->
     e.preventDefault()
-
-    petelab.trigger 'navigate',
-      url: $(this).attr('href'),
-      (=> window.location = $(this).attr('href'))
-
-  $('.screenshot').on 'click', (e) ->
-    e.preventDefault()
-    e.stopImmediatePropagation()
-
     petelab.trigger('screenshot')
+
+  petelab.sync()
+
